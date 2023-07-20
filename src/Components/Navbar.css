@@ -1,0 +1,20 @@
+.input{
+    width:300px;
+    margin-right: 500px;
+}
+
+.navbar{
+    background-color: #291784
+}
+
+.title {
+    color: white;
+}
+
+.bar{
+    color: aliceblue;
+}
+
+.nav-dropdown .nav-link {
+color: white;
+}
