@@ -9,6 +9,8 @@ export default function AddAdministrador() {
     contrasena: "",
   });
 
+  const [emailError, setEmailError] = useState("");
+
   const handleChange = function (e) {
     setFormulario({
       ...formulario,
@@ -18,6 +20,14 @@ export default function AddAdministrador() {
 
   const handleSubmit = function (e) {
     e.preventDefault();
+
+    if (!formulario.email.includes("@")) {
+      setEmailError("El email debe contener un arroba (@)");
+      return;
+    } else {
+      setEmailError("");
+    }
+
     const administrador = JSON.stringify(formulario);
     console.log(administrador);
     axios
@@ -52,16 +62,21 @@ export default function AddAdministrador() {
               <Form>
                 <Form.Group className="mb-3" controlId="nombre">
                   <Form.Label>Nombre</Form.Label>
-                  <Form.Control type="text" placeholder="Nombre del producto" name="nombre"  onChange={handleChange}/>
+                  <Form.Control type="text" placeholder="Nombre del administrador" name="nombre"  onChange={handleChange}/>
                 </Form.Group>
-                
-                <Form.Group className="mb-3" controlId="precio">
+
+                {emailError && (
+                      <p className="text-red-500 mt-1 text-sm">{emailError}</p>
+                    )}
+
+                    
+                <Form.Group className="mb-3" controlId="email">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control type="text" placeholder="Correo" name="email" onChange={handleChange} />
+                  <Form.Control type="email" placeholder="Correo" name="email"  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required onChange={handleChange} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="imagen">
                   <Form.Label>Contrasena</Form.Label>
-                  <Form.Control type="text" placeholder="contrasena" name="contrasena"  onChange={handleChange} />
+                  <Form.Control type="password" placeholder="contrasena" name="contrasena"  onChange={handleChange} />
                 </Form.Group>
                 <div className="flex justify-center">
                   <button
@@ -69,7 +84,7 @@ export default function AddAdministrador() {
                     onClick={handleSubmit}
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
-                    Enviar
+                    Agregar
                   </button>
                 </div>
               </Form>

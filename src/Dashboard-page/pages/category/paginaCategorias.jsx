@@ -6,8 +6,10 @@ function paginaCategorias() {
   return (
     <>
       <Sidebar/>
-      <p>Mi pagina de categorias</p> 
+      <div class="ml-96">
       <Catcategory/>
+      </div>
+
     </>
   )
 }

@@ -6,8 +6,9 @@ function paginaProductos() {
   return (
     <>
     <Sidebar/>
-     <p>Mi pagina de productos</p> 
-     <CatProducto/>
+    
+     <div class="ml-96"><CatProducto/></div> 
+     
     </>
   )
 }

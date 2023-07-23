@@ -7,7 +7,9 @@ export default function AddProducts() {
     nombre: "",
     descripcion: "",
     precio: "",
+    stock: "",
     imagen: "",
+    
   });
 
   const handleChange = function (e) {
@@ -63,9 +65,13 @@ export default function AddProducts() {
                   <Form.Label>Precio</Form.Label>
                   <Form.Control type="number" placeholder="Precio del producto" name="precio" onChange={handleChange} />
                 </Form.Group>
+                <Form.Group className="mb-3" controlId="stock">
+                  <Form.Label>Stock</Form.Label>
+                  <Form.Control type="number" placeholder="Stock del producto" name="stock" onChange={handleChange} />
+                </Form.Group>
                 <Form.Group className="mb-3" controlId="imagen">
                   <Form.Label>Imagen</Form.Label>
-                  <Form.Control type="text" placeholder="url de la imagen del producto" name="imagen"  onChange={handleChange} />
+                  <Form.Control type="file" placeholder="url de la imagen del producto" name="imagen"  onChange={handleChange} />
                 </Form.Group>
                 <div className="flex justify-center">
                   <button

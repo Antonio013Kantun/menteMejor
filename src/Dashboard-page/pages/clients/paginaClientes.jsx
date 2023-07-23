@@ -7,7 +7,8 @@ function paginaClientes() {
     <>
       <Sidebar/>
       <p>Mi pagina de clientes</p> 
-     <AddClient/>
+      <div class="ml-96"> <AddClient/></div>
+     
     </>
   )
 }
