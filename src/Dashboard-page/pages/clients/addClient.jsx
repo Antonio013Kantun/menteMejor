@@ -78,7 +78,7 @@ export default function AddClients() {
                       <p className="text-red-500 mt-1 text-sm">{emailError}</p>
                     )}
             
-            <Form.Group className="mb-3" controlId="precio">
+            <Form.Group className="mb-3" controlId="email">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" placeholder="Correo" name="email" onChange={handleChange} />
             </Form.Group>

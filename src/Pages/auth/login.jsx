@@ -1,6 +1,29 @@
+import React from 'react'
 import { Link } from "react-router-dom";
 
+
 export default function Login() {
+
+   // Obtener los valores del formulario
+   const email = e.target.email.value;
+   const contrasena = e.target.contrasena.value;
+ 
+   // Enviar la solicitud al servidor (cambia la URL a la ruta correcta de tu backend)
+   axios
+     .post("http://localhost:3001/login", { email, contrasena })
+     .then((response) => {
+       // Si el servidor responde con éxito, redirige al usuario a la página de inicio del ecommerce
+       window.location.href = "/inicio";
+     })
+     .catch((error) => {
+       // Si el servidor responde con un error, muestra un mensaje de que las credenciales son incorrectas
+       alert("Credenciales incorrectas. Vuelve a ingresar tus datos.");
+     });
+ 
+
+  
+
+
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="text-center">
