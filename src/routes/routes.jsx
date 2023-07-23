@@ -45,10 +45,7 @@ export const routes = createBrowserRouter([
         path: "/comentarios",
         element: <Comentarios/>,
       },
-      {
-        path: "/login",
-        element: <Login />,
-      },
+      
       {
         path: "/register",
         element: <Register />,
@@ -128,5 +125,9 @@ export const routes = createBrowserRouter([
   {
     path: "updateAdministrador/:id",
     element: <UpdateAdministrador/>
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
