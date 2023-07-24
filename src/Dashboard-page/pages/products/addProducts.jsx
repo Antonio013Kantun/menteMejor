@@ -1,6 +1,7 @@
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // Importa el componente Link
 
 export default function AddProducts() {
   const [formulario, setFormulario] = useState({
@@ -9,7 +10,22 @@ export default function AddProducts() {
     precio: "",
     stock: "",
     imagen: "",
+    categoria: "", // Agrega la propiedad "categoria" al formulario
   });
+
+  const [categorias, setCategorias] = useState([]); // Estado para almacenar las categorías disponibles
+
+  useEffect(() => {
+    // Realiza una solicitud para obtener las categorías disponibles
+    axios
+      .get("http://localhost:3001/categorias")
+      .then((response) => {
+        setCategorias(response.data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener las categorías", error);
+      });
+  }, []);
 
   const handleChange = function (e) {
     setFormulario({
@@ -72,7 +88,18 @@ export default function AddProducts() {
                     <Form.Label>Imagen</Form.Label>
                     <Form.Control type="text" placeholder="URL de la imagen del producto" name="imagen" onChange={handleChange} />
                   </Form.Group>
-                  <div className="flex justify-center">
+                  <Form.Group className="mb-3" controlId="categoria">
+                    <Form.Label>Categoría</Form.Label>
+                    <Form.Control as="select" name="categoria" onChange={handleChange}>
+                      <option value="">Seleccionar categoría</option>
+                      {categorias.map((categoria) => (
+                        <option key={categoria.id_categoria} value={categoria.id_categoria}>
+                          {categoria.nombre}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Form.Group>
+                  <div className="flex justify-center space-x-4">
                     <button
                       type="submit"
                       onClick={handleSubmit}
@@ -80,6 +107,11 @@ export default function AddProducts() {
                     >
                       Enviar
                     </button>
+                    <Link
+                      to="/productos"
+                      className="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"> 
+                      Volver
+                    </Link>
                   </div>
                 </Form>
               </td>
