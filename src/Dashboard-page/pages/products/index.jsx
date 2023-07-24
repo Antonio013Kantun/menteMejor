@@ -16,7 +16,7 @@ export default function HomeProducts() {
     setIdToDelete(id);
     setShowConfirmationModal(true);
   };
-  
+
 
   const id = window.location.href.split("/")[4]
 
@@ -38,7 +38,7 @@ export default function HomeProducts() {
         setShowConfirmationModal(false);
       });
   };
-  
+
 
   useEffect(function () {
     axios
@@ -88,83 +88,93 @@ export default function HomeProducts() {
         <div className="align-middle inline-block min-w-full">
           <div className="shadow-md overflow-hidden sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-200 font-inter">
-            <thead className="bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
-                >
-                  ID
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
-                >
-                  Nombre
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
-                >
-                  Precio
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
-                >
-                  Descripción
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
-                >
-                  Stock
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
-                >
-                  Acciones
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-              {currentRecords.map((producto) => (
-                <tr key={producto.id_producto}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {producto.id_producto}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {producto.nombre}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {producto.precio}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {producto.descripcion}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {producto.stock}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    <button
-                      className="px-3 py-1.5 bg-blue-500 text-white rounded-lg"
-                      onClick={() => handleEdit(producto.id_producto)}
-                    >
-                      <Link className="no-underline text-white" to={"/updateProduct/" + producto.id_producto}>
-                        Editar
-                      </Link>
-                    </button>
-                    <button
-                      className="ml-2 px-3 py-1.5 bg-red-500 text-white rounded-lg"
-                      onClick={() => handleDelete(producto.id_producto)}
-                    >
-                      Eliminar
-                    </button>
-                  </td>
+              <thead className="bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  >
+                    ID
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  >
+                    Nombre
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  >
+                    Precio
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  >
+                    Descripción
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  >
+                    Stock
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  >
+                    Categoría
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  >
+                    Acciones
+                  </th>
                 </tr>
-              ))}
-            </tbody>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                {currentRecords.map((producto) => (
+                  <tr key={producto.id_producto}>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {producto.id_producto}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {producto.nombre}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {producto.precio}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {producto.descripcion}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {producto.stock}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {/* Mostrar el nombre de la categoría */}
+                      {producto.categoria}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      <button
+                        className="px-3 py-1.5 bg-blue-500 text-white rounded-lg"
+                        onClick={() => handleEdit(producto.id_producto)}
+                      >
+                        <Link className="no-underline text-white" to={"/updateProduct/" + producto.id_producto}>
+                          Editar
+                        </Link>
+                      </button>
+                      <button
+                        className="ml-2 px-3 py-1.5 bg-red-500 text-white rounded-lg"
+                        onClick={() => handleDelete(producto.id_producto)}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
         </div>
@@ -182,9 +192,8 @@ export default function HomeProducts() {
         {Array.from({ length: totalPages }).map((_, index) => (
           <button
             key={index}
-            className={`px-3 py-1 ${
-              currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-gray-300 text-gray-700"
-            } rounded-md`}
+            className={`px-3 py-1 ${currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-gray-300 text-gray-700"
+              } rounded-md`}
             onClick={() => setCurrentPage(index + 1)}
           >
             {index + 1}
@@ -250,4 +259,3 @@ export default function HomeProducts() {
     </div>
   );
 }
-
