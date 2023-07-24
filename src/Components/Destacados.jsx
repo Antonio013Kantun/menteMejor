@@ -2,17 +2,20 @@ import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import axios from 'axios';
 
-const CardCelulares = ({ nombre, imagen, precio, onCompraProducto }) => {
+const CardCelulares = ({ nombre, imagen, precio, categoria, descripcion, onCompraProducto }) => {
   return (
-    <div className="bg-[#ffffff] rounded-xl border-3 flex flex-col items-center gap-2 p-2 m-4 overflow-hidden">
+    <div className="bg-[#ffffff] rounded-xl border-3 flex flex-col items-center gap-2 p-2 m-4 overflow-hidden" style={{ minHeight: '400px' }}>
       <img
         src={imagen}
-        className="w-full h-55 bg-cover rounded-xl"
+        className="w-40 h-40 bg-cover rounded-xl"
         style={{ backgroundSize: 'contain' }}
         alt={nombre}
       />
       <h1 className="text-center text-lg mt-2 font-semibold">{nombre}</h1>
+      <h2 className="text-center text-gray-500 text-sm">{categoria}</h2>
+      <p className="text-center text-gray-600 text-sm line-clamp-3">{descripcion}</p>
       <h2>${precio}</h2>
       <button
         className="bg-black text-white px-4 py-2.5 rounded text-center justify-center mt-2"
@@ -24,12 +27,44 @@ const CardCelulares = ({ nombre, imagen, precio, onCompraProducto }) => {
   );
 };
 
+
 const App = () => {
   const [compraRealizada, setCompraRealizada] = useState(false);
+  const [productos, setProductos] = useState([]);
 
   const handleCompraProducto = () => {
     setCompraRealizada(true);
   };
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/productos')
+      .then((response) => {
+        // Ordenar los productos por precio de menor a mayor
+        const sortedProductos = response.data.sort((a, b) => a.precio - b.precio);
+        // Seleccionar los 5 productos con el precio más bajo
+        const productosToShow = sortedProductos.slice(0, 5);
+        // Obtener los nombres de categorías y descripciones para cada producto
+        const promises = productosToShow.map((producto) =>
+          axios.get(`http://localhost:3001/categorias/${producto.categoria}`)
+        );
+        Promise.all(promises)
+          .then((responses) => {
+            const productosConCategoria = productosToShow.map((producto, index) => ({
+              ...producto,
+              categoria: responses[index].data.nombre,
+              descripcion: producto.descripcion, // Agregar la descripción
+            }));
+            setProductos(productosConCategoria);
+          })
+          .catch((error) => {
+            console.error('Error al obtener las categorías:', error);
+          });
+      })
+      .catch((error) => {
+        console.error('Error al cargar los productos:', error);
+      });
+  }, []);
 
   useEffect(() => {
     if (compraRealizada) {
@@ -61,39 +96,6 @@ const App = () => {
       },
     ],
   };
-
-  const productos = [
-    {
-      nombre: 'Tubos',
-      imagen:
-        'https://www.thetherapystore.com.au/assets/thumb/92419.jpg?20220203103956',
-      precio: 19.99,
-    },
-    {
-      nombre: 'Kanoodle',
-      imagen:
-        'https://www.thetherapystore.com.au/assets/thumb/2978.jpg?20220202123132',
-      precio: 29.99,
-    },
-    {
-      nombre: 'Moorphe zen',
-      imagen:
-        'https://www.thetherapystore.com.au/assets/thumb/MORP-AUDIMZ-0012.jpg?20230417112521',
-      precio: 24.99,
-    },
-    {
-      nombre: 'Bola nudosa',
-      imagen:
-        'https://images.schoolspecialty.com/images/2120260_A_ecommfullsize.jpg',
-      precio: 24.99,
-    },
-    {
-      nombre: 'Brazalete masticable',
-      imagen:
-        'https://images.schoolspecialty.com/images/017640_A_ecommfullsize.jpg',
-      precio: 24.99,
-    },
-  ];
 
   return (
     <div>

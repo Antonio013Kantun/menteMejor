@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const CardProducto = ({ nombre, imagen, precio, categoria, onCompraProducto, cardSize }) => {
+const CardProducto = ({ nombre, imagen, precio, categoria, descripcion, onCompraProducto, cardSize }) => {
   const [compraRealizada, setCompraRealizada] = useState(false);
 
   useEffect(() => {
@@ -33,6 +33,8 @@ const CardProducto = ({ nombre, imagen, precio, categoria, onCompraProducto, car
       <h1 className="text-center text-lg mt-2 font-semibold">{nombre}</h1>
       <h2 className="text-center">${precio}</h2>
       <h3 className="text-center text-sm text-gray-600">{categoria}</h3>
+      {/* Mostrar la descripción */}
+      <p className="text-center text-sm text-gray-500">{descripcion}</p>
       <button
         className="bg-black text-white px-4 py-2.5 rounded text-center justify-center mt-2"
         onClick={handleCompraProducto}
