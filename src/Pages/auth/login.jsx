@@ -3,6 +3,70 @@ import { Link } from "react-router-dom";
 
 export default function Login() {
 
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const navigate = useNavigate();
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    let isValidCredentials=false;
+    let tipo_usuario=0;
+    //let nombre=null;
+    console.log(username+""+password);
+    const data = new URLSearchParams("username="+username+"&password="+password);
+
+    fetch('http://localhost/api_ut/login.php', {method: 'POST',body:data}).then((response) => {
+        return response.json()
+      })
+      .then((datos_login) => {
+        console.log(datos_login);
+         isValidCredentials = datos_login.status;
+         tipo_usuario=datos_login.tipo_user;
+
+      })
+    // Aquí se verifican las credenciales son válidas
+    //const isValidCredentials = checkCredentials(username, password);
+
+    setShowAlert(true);
+
+    // En esta parte se simula una alerta que dura 1.5 segundos
+    setTimeout(() => {
+      setShowAlert(false);
+
+      // Aqui se redirige al usuario a la ruta especificada después de la alerta
+      if (isValidCredentials) {
+        console.log("login exitoso")
+        if (tipo_usuario==1){
+                window.location.href = "http://localhost/administrador";
+        } else{
+          document.getElementById("login_nombre").innerHTML = username;
+          navigate("/");
+        }
+      } else {
+        navigate("/");
+      }
+    }, 1500);
+  };
+
+  const checkCredentials = (username, password) => {
+    const validUsers = [
+      { username: "jonny@admin", password: "jonny" },
+      { username: "gustavo@admin", password: "teamobebo" },
+      { username: "edwin@admin", password: "teamobebo" },
+    ];
+    return validUsers.some(
+      (user) => user.username === username && user.password === password
+    );
+  };
 
 
   return (

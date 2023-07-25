@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Footer from '../Components/Footer';
 import CardProducto from '../Components/cardProducto';
 import axios from 'axios';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+
 
 const Catalogo = () => {
   const [compraRealizada, setCompraRealizada] = useState(false);
@@ -80,6 +82,11 @@ const Catalogo = () => {
     setFiltroCategoria(event.target.value);
   };
 
+const amount = '1';
+  const currency = "MXN";
+  const style = {"layout":"vertical"};
+
+
   return (
     <>
       {compraRealizada && (
@@ -129,8 +136,15 @@ const Catalogo = () => {
               categoria={obtenerNombreCategoria(producto.categoria)} // Aquí obtenemos el nombre de la categoría
               descripcion={producto.descripcion}
               onCompraProducto={handleCompraProducto}
+              
             />
           ))}
+        <PayPalScriptProvider options={{"AeZQO65iXzZqauDtK92C-RRWGExgg3-gewhWo9nWMLGtnVD86kvIabXfMsvCTRnjc_tfEEfiCv-GbkHm": 
+                  "", currency: "MXN",}}>
+          <PayPalButtons 
+          
+          />
+        </PayPalScriptProvider>
         </div>
       </div>
       <Footer />
