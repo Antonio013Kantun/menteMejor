@@ -110,6 +110,12 @@ export default function HomeClients() {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                   >
+                    Contraseña
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                  >
                     Dirección
                   </th>
                   <th
@@ -149,6 +155,9 @@ export default function HomeClients() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {cliente.email}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                      {cliente.contrasena}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {cliente.direccion}
@@ -198,9 +207,8 @@ export default function HomeClients() {
         {Array.from({ length: totalPages }).map((_, index) => (
           <button
             key={index}
-            className={`px-3 py-1 ${
-              currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-gray-300 text-gray-700"
-            } rounded-md`}
+            className={`px-3 py-1 ${currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-gray-300 text-gray-700"
+              } rounded-md`}
             onClick={() => setCurrentPage(index + 1)}
           >
             {index + 1}

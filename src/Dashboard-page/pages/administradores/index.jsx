@@ -139,7 +139,7 @@ export default function HomeCatalogs() {
                     {administrador.email}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {administrador.contrasena.replace(/./g, '*')}
+                    {administrador.contrasena}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     <button
